@@ -22,8 +22,8 @@
       ],
       "main": "index",
       "readmeFilename": "Readme.md",
-      "_id": "caradoc-sql@0.0.3",
-      "_from": "caradoc-sql@~0.0.3",
+      "_id": "caradoc-sql@0.1.0",
+      "_from": "caradoc-sql@",
       "homepage": "http://github.com/gderouineau/caradoc-sql",
       "repository": {
         "type": "git",
