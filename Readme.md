@@ -5,81 +5,33 @@
 
 ## Installation
 
-    $ npm  install caradoc-user
+    $ npm  install caradoc-sql
 
 ## Use
 
-you need to create a entity to inherit from caradoc-user
-and specify the user path in config/security.js
+you need to renseign your config/params/db.js file
 
 ```js
 
-var User = require('caradoc-user').User;
+var mysql = require('caradoc-sql');
 
-exports.User = function(firstname, lastname, otherMethods) {
+mysql.connect();
 
-    /*
-     * Inherit from user
-     */
-    this.inheritFrom = User;
-    this.inheritFrom();
+var query = "SELECT * FROM table WHERE ....";
 
-    /*
-     * adding method firstname
-     * type Varchar(255)
-     */
-    this.firstname = firstname;
-    this.params['firstname'] = {
-        type : 'VARCHAR(255)'
-    };
+mysql.query(query)
+    .on('error', function(err){
+        console.log(err);
+    })
+    .on('result', function(rows){
+        console.log(rows);
+    })
+;
 
-    /*
-     * adding method lastname
-     * type Varchar(255)
-     */
-    this.lastname = lastname;
-    this.params['lastname'] = {
-        type : 'VARCHAR(255)'
-    };
-
-    /*
-     * adding other method
-     *
-     */
-     this.otherMethods = otherMethods;
-     this.params['otherMethods'] = {
-        type : 'INT(11)',
-        default : 'NULL'
-     };
-
-     ....
-};
-
-
-// Then in your controller
-
-var entity = require('caradoc-entity');
-var user = new entity.generate('user');
-    user.username = 'username';
-    user.email = 'user@mail.com';
-    ...
-    user.password = 'password';
-
-    entity.persist(user); // add user to waiting list for insertion
-    entity.flush(); // run the waiting list
 
 ```
 
 
-## Methods
-
-- **id** - id default null auto increment INT(11)
-- **username** - user username default not null VARCHAR(255)
-- **email** - email default not null VARCHAR(255)
-- **password** - user password salted default not null VARCHAR(255)
-- **salt** - user password salt
-- **enabled** - 0 or 1 DEFAULT 1  TINYINT(1)
-- **role** - user role like ROLE_MEMBER ROLE_ADMIN ... DEFAULT ROLER_MEMBER VARCHAR(255)
 
 ## License
 
